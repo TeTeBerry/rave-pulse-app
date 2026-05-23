@@ -1,0 +1,15 @@
+{
+  "miniprogramRoot": "./",
+  "projectname": "rave-pulse-app-miniapp",
+  "description": "",
+  "appid": "touristappid",
+  "setting": {
+    "urlCheck": true,
+    "es6": true,
+    "enhance": true,
+    "compileHotReLoad": true,
+    "postcss": true,
+    "minified": false
+  },
+  "compileType": "miniprogram"
+}

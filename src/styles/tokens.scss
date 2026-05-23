@@ -1,0 +1,29 @@
+/**
+ * RavePulse 统一设计令牌
+ * SCSS：`@use "…tokens" as *;`（rpx 按 750 设计宽度，20px≈40rpx）
+ * CSS var：同步见 src/styles/ravepulse.css :root
+ */
+
+$rp-primary: #c8b6ff !default;
+$rp-secondary: #bde0fe !default;
+$rp-bg: #f8f9fc !default;
+$rp-card: #ffffff !default;
+$rp-text: #333644 !default;
+$rp-text-muted: #8a8f9e !default;
+$rp-divider: #e9ebf2 !default;
+
+/// 卡片 / 大块容器主圆角（设计稿 20px）
+$rp-radius: 40rpx !default;
+
+/// 与设计稿等价：0 4px 16px rgba(200,182,255,0.15) → rpx
+$rp-shadow-card: 0 8rpx 32rpx rgba(200, 182, 255, 0.15) !default;
+
+@mixin rp-card-panel {
+  background-color: $rp-card;
+  border-radius: $rp-radius;
+  box-shadow: $rp-shadow-card;
+}
+
+@mixin rp-gradient-accent {
+  background: linear-gradient(135deg, $rp-primary 0%, $rp-secondary 100%);
+}

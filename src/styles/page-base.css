@@ -1,0 +1,19 @@
+.page {
+  padding: 32rpx;
+  box-sizing: border-box;
+}
+
+.title {
+  display: block;
+  font-size: 36rpx;
+  font-weight: 600;
+  margin-bottom: 16rpx;
+}
+
+.desc {
+  display: block;
+  font-size: 26rpx;
+  color: #666666;
+  line-height: 1.5;
+  margin-bottom: 24rpx;
+}

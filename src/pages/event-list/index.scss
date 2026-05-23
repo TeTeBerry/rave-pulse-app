@@ -1,0 +1,303 @@
+@use "../../styles/tokens.scss" as *;
+
+.ev-page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  background-color: $rp-bg;
+  box-sizing: border-box;
+}
+
+.ev-header-bar {
+  flex-shrink: 0;
+  background-color: $rp-card;
+  border-bottom: 2rpx solid $rp-divider;
+}
+
+.ev-nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: calc(24rpx + env(safe-area-inset-top, 0px)) 32rpx 20rpx;
+  box-sizing: border-box;
+}
+
+.ev-nav__btn {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ev-nav__title {
+  flex: 1;
+  text-align: center;
+  font-size: 30rpx;
+  font-weight: 700;
+  color: $rp-text;
+  letter-spacing: 0.04em;
+}
+
+.ev-filter-scroll {
+  width: 100%;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+.ev-filter-inner {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16rpx;
+  padding: 16rpx 32rpx 28rpx;
+}
+
+.ev-chip {
+  flex-shrink: 0;
+  padding: 12rpx 32rpx;
+  border-radius: 999rpx;
+  box-sizing: border-box;
+}
+
+.ev-chip--inactive {
+  background-color: rgba($rp-primary, 0.12);
+}
+
+.ev-chip__text {
+  font-size: 26rpx;
+  font-weight: 500;
+  color: $rp-text-muted;
+}
+
+.ev-chip--active .ev-chip__text {
+  color: #fff;
+}
+
+.ev-chip--active {
+  background: linear-gradient(135deg, $rp-primary 0%, #bfa8ff 55%, rgba(189, 224, 254, 0.95) 100%);
+}
+
+.ev-list-scroll {
+  flex: 1;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.ev-list-inner {
+  padding: 24rpx 32rpx 80rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+  box-sizing: border-box;
+}
+
+/* —— 主题变量（对齐设计稿色号）—— */
+.event-card.event-card--house {
+  --ev-tag-bg: #f4efff;
+  --ev-tag-fg: #b09cff;
+  --ev-cover-bg: #ebe4ff;
+  --ev-cover-accent: #c8b6ff;
+  --ev-ticket-pill-bg: rgba(156, 140, 255, 0.12);
+  --ev-price-fg: #9c8cff;
+}
+
+.event-card.event-card--techno {
+  --ev-tag-bg: rgba(189, 224, 254, 0.45);
+  --ev-tag-fg: #5aa7dc;
+  --ev-cover-bg: rgba(189, 224, 254, 0.38);
+  --ev-cover-accent: #8ec5ea;
+  --ev-ticket-pill-bg: rgba(163, 209, 245, 0.14);
+  --ev-price-fg: #a3d1f5;
+}
+
+.event-card.event-card--trance {
+  --ev-tag-bg: #fff7e6;
+  --ev-tag-fg: #fdba74;
+  --ev-cover-bg: #fff4d6;
+  --ev-cover-accent: #fdba74;
+  --ev-ticket-pill-bg: rgba(232, 149, 74, 0.12);
+  --ev-price-fg: #e8954a;
+}
+
+.event-card.event-card--bass {
+  --ev-tag-bg: #e6fffa;
+  --ev-tag-fg: #4fd1c5;
+  --ev-cover-bg: #e0fcf4;
+  --ev-cover-accent: #4fd1c5;
+  --ev-ticket-pill-bg: rgba(65, 196, 182, 0.12);
+  --ev-price-fg: #41c4b6;
+}
+
+.event-card {
+  flex-direction: row;
+  align-items: stretch;
+  gap: 28rpx;
+  padding: 28rpx;
+  border-radius: $rp-radius;
+  background-color: $rp-card;
+  box-shadow: $rp-shadow-card;
+  display: flex;
+  box-sizing: border-box;
+}
+
+.event-cover {
+  width: 172rpx;
+  height: 172rpx;
+  flex-shrink: 0;
+  border-radius: 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--ev-cover-bg);
+}
+
+.event-cover__glyph {
+  font-size: 68rpx;
+  opacity: 0.62;
+  color: var(--ev-cover-accent);
+}
+
+.event-cover__dot {
+  position: absolute;
+  top: 16rpx;
+  right: 16rpx;
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 50%;
+  background-color: var(--ev-cover-accent);
+  opacity: 0.45;
+}
+
+.event-body {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6rpx;
+}
+
+.event-body__title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: $rp-text;
+  line-height: 1.32;
+}
+
+.event-body__meta {
+  font-size: 22rpx;
+  color: $rp-text-muted;
+  font-weight: 500;
+}
+
+.event-genre {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 6rpx;
+}
+
+.event-genre__pill {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6rpx;
+  padding: 8rpx 20rpx;
+  border-radius: 999rpx;
+  background-color: var(--ev-tag-bg);
+}
+
+.event-genre__text {
+  font-size: 22rpx;
+  font-weight: 600;
+  color: var(--ev-tag-fg);
+}
+
+.event-hr {
+  height: 1px;
+  width: 100%;
+  margin: 16rpx 0;
+  background-color: $rp-divider;
+}
+
+.event-extra {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.event-extra__row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 10rpx;
+}
+
+.event-extra__icon-box {
+  margin-top: 2rpx;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.event-extra__text {
+  flex: 1;
+  font-size: 24rpx;
+  line-height: 1.45;
+  color: $rp-text-muted;
+}
+
+.event-pricing {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.event-pricing__left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12rpx;
+  min-width: 0;
+  flex: 1;
+}
+
+.event-pricing__icon-wrap {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.event-pricing__pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8rpx 22rpx;
+  border-radius: 999rpx;
+  background-color: var(--ev-ticket-pill-bg);
+  box-sizing: border-box;
+}
+
+.event-pricing__pill-text {
+  font-size: 22rpx;
+  font-weight: 600;
+  color: var(--ev-price-fg);
+}
+
+.event-pricing__price {
+  flex-shrink: 0;
+  margin-left: 16rpx;
+  font-family: ui-monospace, "SF Mono", monospace;
+  font-size: 38rpx;
+  font-weight: 700;
+  color: var(--ev-price-fg);
+  letter-spacing: 0.02em;
+}

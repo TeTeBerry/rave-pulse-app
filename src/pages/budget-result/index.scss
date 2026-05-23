@@ -1,0 +1,540 @@
+// 预算结果页 · 令牌 + 三套方案强调色（紫对齐主品牌 / 蓝对齐晴空蓝）
+@use "../../styles/tokens.scss" as *;
+
+$budget-page-bg: $rp-bg;
+$budget-text-strong: $rp-text;
+$budget-text-body: $rp-text-muted;
+$budget-text-muted: $rp-text-muted;
+
+@mixin accent-purple {
+  --budget-primary: #{$rp-primary};
+  --budget-primary-dark: #b8a3ea;
+  --budget-soft: #faf8ff;
+  --budget-soft-box: rgba(200, 182, 255, 0.1);
+  --budget-stripe-from: #{$rp-primary};
+  --budget-stripe-to: #{$rp-secondary};
+  --budget-card-border: rgba(200, 182, 255, 0.28);
+  --budget-timeline-line: rgba(200, 182, 255, 0.45);
+  --budget-timeline-dot: #{$rp-primary};
+  --budget-nav-label: #{$rp-primary};
+}
+
+@mixin accent-blue {
+  --budget-primary: #{$rp-secondary};
+  --budget-primary-dark: #74b9e8;
+  --budget-soft: #f6fbfe;
+  --budget-soft-box: rgba(189, 224, 254, 0.22);
+  --budget-stripe-from: #{$rp-secondary};
+  --budget-stripe-to: #{$rp-primary};
+  --budget-card-border: rgba(189, 224, 254, 0.5);
+  --budget-timeline-line: rgba(189, 224, 254, 0.75);
+  --budget-timeline-dot: #7ebef5;
+  --budget-nav-label: #5aaee8;
+}
+
+@mixin accent-pink {
+  --budget-primary: #db2777;
+  --budget-primary-dark: #be185d;
+  --budget-soft: #fdf2f8;
+  --budget-soft-box: rgba(219, 39, 119, 0.08);
+  --budget-stripe-from: #f9a8d4;
+  --budget-stripe-to: #fbcfe8;
+  --budget-card-border: rgba(219, 39, 119, 0.14);
+  --budget-timeline-line: #fce7f3;
+  --budget-timeline-dot: #ec4899;
+  --budget-nav-label: #db2777;
+}
+
+.budget-page {
+  min-height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: $budget-page-bg;
+  padding-bottom: calc(200rpx + env(safe-area-inset-bottom, 0px));
+}
+
+/* —— Hero（卡片外顶部区）—— */
+.budget-hero {
+  position: relative;
+  padding: calc(96rpx + env(safe-area-inset-top, 0px)) 40rpx 32rpx;
+  text-align: center;
+}
+
+.budget-hero__back {
+  position: absolute;
+  left: 32rpx;
+  top: calc(88rpx + env(safe-area-inset-top, 0px));
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  border: 2rpx solid $rp-divider;
+  background-color: $rp-card;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.budget-hero__badge-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24rpx;
+}
+
+.budget-hero__badge {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  @include rp-gradient-accent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.budget-hero__title {
+  display: block;
+  font-size: 38rpx;
+  font-weight: 700;
+  color: $budget-text-strong;
+  line-height: 1.35;
+  margin-bottom: 16rpx;
+}
+
+.budget-hero__subtitle {
+  display: block;
+  font-size: 26rpx;
+  color: $budget-text-muted;
+}
+
+/* —— 轮播外：方案导航 —— */
+.budget-carousel {
+  width: 100%;
+  max-width: 750rpx;
+  margin: 0 auto;
+  padding: 0 32rpx;
+  box-sizing: border-box;
+}
+
+.budget-carousel--accent-purple {
+  @include accent-purple;
+}
+
+.budget-carousel--accent-blue {
+  @include accent-blue;
+}
+
+.budget-carousel--accent-pink {
+  @include accent-pink;
+}
+
+.budget-carousel__nav-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8rpx 24rpx;
+}
+
+.budget-carousel__nav-muted {
+  font-size: 22rpx;
+  font-weight: 600;
+  color: $budget-text-muted;
+  letter-spacing: 0.08em;
+}
+
+.budget-carousel__nav-accent {
+  font-size: 22rpx;
+  font-weight: 600;
+  color: var(--budget-nav-label);
+  max-width: 420rpx;
+  text-align: right;
+}
+
+.budget-carousel__viewport {
+  position: relative;
+  overflow: hidden;
+  border-radius: $rp-radius;
+}
+
+.budget-carousel__track {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  transition: transform 380ms cubic-bezier(0.32, 0.72, 0, 1);
+  box-sizing: border-box;
+}
+
+.budget-carousel__slide {
+  flex-shrink: 0;
+  flex-basis: 100%;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.budget-carousel__arrow {
+  position: absolute;
+  top: 50%;
+  margin-top: -36rpx;
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  border: 2rpx solid $rp-divider;
+  background-color: $rp-card;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.budget-carousel__arrow--disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.budget-carousel__arrow--prev {
+  left: 24rpx;
+}
+
+.budget-carousel__arrow--next {
+  right: 24rpx;
+}
+
+.budget-carousel__dots {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 16rpx;
+  margin-top: 32rpx;
+}
+
+.budget-carousel__dot {
+  border-radius: 40rpx;
+  height: 16rpx;
+  transition: width 260ms ease, background-color 260ms ease;
+}
+
+.budget-carousel__dot--off {
+  width: 16rpx;
+  background-color: $rp-divider;
+}
+
+.budget-carousel__dot--on {
+  width: 40rpx;
+  background-color: var(--budget-primary);
+}
+
+/* —— 主白卡 —— */
+.budget-card {
+  overflow: hidden;
+  border-radius: $rp-radius;
+  border: 1px solid var(--budget-card-border);
+  background-color: $rp-card;
+  box-shadow: $rp-shadow-card;
+}
+
+.budget-card--purple {
+  @include accent-purple;
+}
+
+.budget-card--blue {
+  @include accent-blue;
+}
+
+.budget-card--pink {
+  @include accent-pink;
+}
+
+.budget-card__glow {
+  height: 6rpx;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--budget-stripe-from) 0%,
+    var(--budget-stripe-to) 85%,
+    var(--budget-stripe-from) 100%
+  );
+}
+
+.budget-card__body {
+  padding: 40rpx 36rpx 48rpx;
+}
+
+.budget-card__title-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 16rpx;
+  margin-bottom: 28rpx;
+}
+
+.budget-card__title {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: $budget-text-strong;
+  line-height: 1.25;
+}
+
+.budget-tags {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+
+.budget-tag {
+  padding: 4rpx 20rpx;
+  border-radius: 999rpx;
+  background-color: var(--budget-soft);
+}
+
+.budget-tag__text {
+  font-size: 22rpx;
+  font-weight: 600;
+  color: var(--budget-primary);
+}
+
+.budget-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+  margin-bottom: 28rpx;
+}
+
+.budget-meta__row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 12rpx;
+}
+
+.budget-meta__icon {
+  margin-top: 4rpx;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.budget-meta__text--strong {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: $budget-text-strong;
+}
+
+.budget-meta__text {
+  font-size: 26rpx;
+  color: $budget-text-muted;
+}
+
+.budget-hr {
+  height: 1px;
+  width: 100%;
+  background-color: $rp-divider;
+  margin-bottom: 28rpx;
+}
+
+.budget-section-label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10rpx;
+  margin-bottom: 12rpx;
+}
+
+.budget-section-label__text {
+  font-size: 22rpx;
+  font-weight: 600;
+  color: $budget-text-muted;
+  letter-spacing: 0.04em;
+}
+
+.budget-cost-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14rpx 0;
+}
+
+.budget-cost-row__left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.budget-cost-row__icon {
+  display: flex;
+  align-items: center;
+}
+
+.budget-cost-row__label {
+  font-size: 26rpx;
+  color: $budget-text-muted;
+}
+
+.budget-cost-row__amount {
+  font-size: 26rpx;
+  font-weight: 500;
+  color: $budget-text-strong;
+}
+
+/* 合计总价 */
+.budget-total {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16rpx;
+  margin-bottom: 32rpx;
+  background-color: var(--budget-soft-box);
+  border-radius: 24rpx;
+  padding: 24rpx 32rpx;
+  box-sizing: border-box;
+  border: 1px solid var(--budget-card-border);
+}
+
+.budget-total__left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.budget-total__caption {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: $budget-text-strong;
+}
+
+.budget-total__price {
+  font-size: 44rpx;
+  font-weight: 700;
+  color: var(--budget-primary-dark);
+}
+
+/* 行程概览 */
+.budget-itinerary {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.budget-itinerary__step {
+  display: flex;
+  flex-direction: row;
+  gap: 22rpx;
+}
+
+.budget-itinerary__rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.budget-itinerary__dot {
+  width: 18rpx;
+  height: 18rpx;
+  border-radius: 50%;
+  margin-top: 12rpx;
+  background-color: var(--budget-timeline-dot);
+}
+
+.budget-itinerary__line {
+  width: 3rpx;
+  flex-grow: 1;
+  min-height: 28rpx;
+  margin-top: 8rpx;
+  background-color: var(--budget-timeline-line);
+}
+
+.budget-itinerary__line--hidden {
+  min-height: 0;
+  margin-top: 0;
+}
+
+.budget-itinerary__main {
+  flex: 1;
+  padding-bottom: 24rpx;
+}
+
+.budget-itinerary__day {
+  font-size: 24rpx;
+  font-weight: 700;
+  color: var(--budget-primary-dark);
+}
+
+.budget-itinerary__sep {
+  font-size: 26rpx;
+  color: $budget-text-muted;
+}
+
+.budget-itinerary__desc {
+  font-size: 26rpx;
+  font-weight: 400;
+  color: $budget-text-muted;
+  line-height: 1.52;
+}
+
+/* 底部固定操作条 */
+.budget-footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  background-color: rgba(248, 249, 252, 0.96);
+  backdrop-filter: blur(10px);
+  border-top: 2rpx solid $rp-divider;
+  padding: 24rpx 32rpx calc(24rpx + env(safe-area-inset-bottom, 0px));
+  box-sizing: border-box;
+}
+
+.budget-footer__row {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 20rpx;
+  width: 100%;
+}
+
+.budget-footer__bookmark {
+  flex: 0 0 38%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10rpx;
+  padding: 26rpx 16rpx;
+  border-radius: $rp-radius;
+  border: 2rpx solid $rp-divider;
+  background-color: $rp-card;
+  box-sizing: border-box;
+}
+
+.budget-footer__bookmark-text {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: $budget-text-strong;
+}
+
+.budget-footer__cta {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10rpx;
+  padding: 26rpx 20rpx;
+  border-radius: $rp-radius;
+  @include rp-gradient-accent;
+  box-sizing: border-box;
+}
+
+.budget-footer__cta-text {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #fff;
+}

@@ -1,0 +1,25 @@
+{
+  "routes": [
+    {
+      "path": "/",
+      "src": "src/pages/Welcome.tsx"
+    },
+    {
+      "path": "/ai-chat",
+      "src": "src/pages/AiChat.tsx"
+    },
+    {
+      "path": "/budget-result",
+      "src": "src/pages/BudgetResult.tsx"
+    },
+    {
+      "path": "/event-list",
+      "src": "src/pages/EventList.tsx"
+    },
+    {
+      "path": "/playlist-detail",
+      "src": "src/pages/PlaylistDetail.tsx"
+    }
+  ],
+  "components": []
+}

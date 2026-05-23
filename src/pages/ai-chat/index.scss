@@ -1,0 +1,433 @@
+@use "../../styles/tokens.scss" as *;
+
+// AI 会话页（令牌 + 渐变按钮）
+$chat-bg: $rp-bg;
+$chat-header-border: $rp-divider;
+$chat-text: $rp-text;
+$chat-text-muted: $rp-text-muted;
+
+$bubble-ai: #dfd4ff;
+$bubble-user: #d4ecfd;
+
+$avatar-ai: #ebe4ff;
+$avatar-user: #cdecfc;
+
+$chip-bg: rgba(200, 182, 255, 0.12);
+$chip-border: $rp-divider;
+
+$input-border: $rp-divider;
+
+.chat-page {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: $chat-bg;
+}
+
+.chat-header {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24rpx 32rpx 20rpx;
+  background-color: $rp-card;
+  border-bottom: 1px solid $chat-header-border;
+  box-sizing: border-box;
+  min-height: 112rpx;
+}
+
+.chat-header__btn {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chat-header__title {
+  flex: 1;
+  font-size: 30rpx;
+  font-weight: 600;
+  color: $chat-text;
+  text-align: center;
+}
+
+.chat-scroll {
+  flex: 1;
+  padding-left: 32rpx;
+  padding-right: 32rpx;
+  padding-top: 32rpx;
+  box-sizing: border-box;
+  background-color: $chat-bg;
+}
+
+.chat-list {
+  display: flex;
+  flex-direction: column;
+  gap: 36rpx;
+  padding-bottom: 48rpx;
+}
+
+.chat-row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  width: 100%;
+  gap: 16rpx;
+}
+
+.chat-row--user {
+  justify-content: flex-end;
+}
+
+.chat-row__main {
+  flex: 1 1 auto;
+  max-width: 556rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+  align-items: flex-start;
+}
+
+.chat-row__main--user {
+  align-items: flex-end;
+}
+
+.chat-avatar {
+  flex-shrink: 0;
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chat-avatar--ai {
+  background-color: $avatar-ai;
+}
+
+.chat-avatar--user {
+  background-color: $avatar-user;
+}
+
+.chat-bubble {
+  padding: 24rpx 32rpx;
+  box-sizing: border-box;
+}
+
+.chat-bubble--ai {
+  background-color: $bubble-ai;
+  border-radius: 32rpx;
+  border-top-left-radius: 12rpx;
+}
+
+.chat-bubble--user {
+  background-color: $bubble-user;
+  border-radius: 32rpx;
+  border-bottom-right-radius: 12rpx;
+}
+
+.chat-bubble__lines {
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-bubble__line {
+  display: block;
+  font-size: 26rpx;
+  color: $chat-text;
+  line-height: 1.58;
+}
+
+.chat-bubble__line + .chat-bubble__line {
+  margin-top: 6rpx;
+}
+
+.chat-bubble__line--bold {
+  font-weight: 600;
+  margin-top: 14rpx;
+}
+
+.chat-bubble__lines > .chat-bubble__line--bold:first-child,
+.chat-bubble__lines > .chat-bubble__line:first-child {
+  margin-top: 0;
+}
+
+.chat-time {
+  font-size: 20rpx;
+  color: $chat-text-muted;
+  padding-left: 8rpx;
+  padding-right: 8rpx;
+}
+
+.chat-row--user .chat-time {
+  align-self: flex-end;
+}
+
+.chat-typing {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8rpx;
+  padding: 24rpx 32rpx;
+  border-radius: 32rpx;
+  border-top-left-radius: 12rpx;
+  background-color: $bubble-ai;
+}
+
+.chat-footer {
+  flex-shrink: 0;
+  background-color: $rp-card;
+  border-top: 1px solid $chat-header-border;
+  padding: 24rpx 32rpx calc(28rpx + env(safe-area-inset-bottom, 0));
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+  box-sizing: border-box;
+  box-shadow: 0 -8rpx 28rpx rgba(200, 182, 255, 0.12);
+}
+
+.chat-chips-scroll {
+  width: 100%;
+  white-space: nowrap;
+}
+
+.chat-chips-row {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16rpx;
+  padding-bottom: 4rpx;
+}
+
+.chat-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14rpx 26rpx;
+  border-radius: 999rpx;
+  border: 2rpx solid $chip-border;
+  background-color: $chip-bg;
+  box-sizing: border-box;
+}
+
+.chat-chip__text {
+  font-size: 22rpx;
+  font-weight: 500;
+  color: $chat-text;
+  white-space: nowrap;
+}
+
+.chat-chip--active {
+  border-width: 2rpx;
+  border-color: $rp-primary;
+  background-color: rgba(200, 182, 255, 0.22);
+}
+
+.chat-chip--active .chat-chip__text {
+  font-weight: 600;
+  color: #9575d9;
+}
+
+.chat-input-shell {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16rpx;
+  background-color: $rp-card;
+  border: 1px solid $input-border;
+  border-radius: 999rpx;
+  padding-left: 32rpx;
+  padding-right: 14rpx;
+  padding-top: 8rpx;
+  padding-bottom: 8rpx;
+  box-sizing: border-box;
+}
+
+.chat-input {
+  flex: 1;
+  font-size: 26rpx;
+  color: $chat-text;
+  min-height: 56rpx;
+}
+
+.chat-send {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @include rp-gradient-accent;
+}
+
+.chat-send--muted {
+  opacity: 0.38;
+}
+
+// —— 嵌入式「预算方案」卡片（与白底 + 令牌阴影对齐设计稿）
+.chat-card {
+  max-width: 556rpx;
+  box-sizing: border-box;
+}
+
+.chat-card--budget {
+  border-radius: $rp-radius;
+  overflow: hidden;
+  background-color: $rp-card;
+  border: 1px solid rgba(200, 182, 255, 0.28);
+  box-shadow: $rp-shadow-card;
+}
+
+.chat-card__body {
+  padding: 36rpx 32rpx 32rpx;
+}
+
+.chat-card__head {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 22rpx;
+  margin-bottom: 28rpx;
+}
+
+.chat-card__head-text {
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+  flex: 1;
+  min-width: 0;
+}
+
+.chat-card__badge {
+  width: 76rpx;
+  height: 76rpx;
+  border-radius: 50%;
+  flex-shrink: 0;
+  @include rp-gradient-accent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chat-card__title-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: baseline;
+}
+
+.chat-card__title-plain {
+  font-size: 31rpx;
+  font-weight: 700;
+  color: $chat-text;
+  line-height: 1.3;
+}
+
+.chat-card__title-strong {
+  font-size: 38rpx;
+  font-weight: 800;
+  color: #a894e8;
+  line-height: 1.15;
+}
+
+.chat-card__sub {
+  font-size: 24rpx;
+  color: $chat-text-muted;
+  line-height: 1.4;
+}
+
+.chat-card__plans {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+  margin-bottom: 28rpx;
+}
+
+.chat-card__plan-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16rpx;
+}
+
+.chat-card__plan-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 14rpx;
+  min-width: 0;
+  flex: 1;
+}
+
+.chat-card__bullet {
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.chat-card__plan-label {
+  flex: 1;
+  font-size: 26rpx;
+  font-weight: 500;
+  color: $chat-text;
+}
+
+.chat-card__plan-price {
+  font-size: 28rpx;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.chat-card__loc {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8rpx;
+  margin-bottom: 26rpx;
+}
+
+.chat-card__loc-text {
+  font-size: 24rpx;
+  color: $chat-text-muted;
+}
+
+.chat-card__cta {
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+  padding: 22rpx 28rpx;
+  border-radius: 999rpx;
+  box-sizing: border-box;
+  display: flex;
+  background: linear-gradient(90deg, $rp-secondary 0%, $rp-primary 100%);
+}
+
+.chat-card__cta-text {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.chat-card__cta-chev {
+  font-size: 36rpx;
+  font-weight: 400;
+  color: #ffffff;
+  line-height: 1;
+  margin-bottom: 4rpx;
+}
+
+.chat-floor {
+  height: 2rpx;
+}

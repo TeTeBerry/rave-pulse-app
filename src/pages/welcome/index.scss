@@ -1,0 +1,294 @@
+@use "../../styles/tokens.scss" as *;
+
+// 欢迎页（令牌 + 渐变标题 · 声波区 · 三张功能卡）
+$welcome-bg-page: $rp-bg;
+$welcome-text-sub: $rp-text-muted;
+$welcome-text-strong: $rp-text;
+$welcome-gradient-title: linear-gradient(90deg, #c8b6ff 0%, #bde0fe 52%, #a5d8ff 100%);
+$welcome-gradient-divider: linear-gradient(90deg, #c8b6ff, #bde0fe);
+$welcome-gradient-cta-flow: linear-gradient(90deg, #c5b4ff 0%, #c8b6ff 35%, #d1e0ff 100%);
+$welcome-chip-bg: rgba(200, 182, 255, 0.1);
+$welcome-chip-border: $rp-divider;
+
+.welcome-page {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 780rpx;
+  min-height: 100vh;
+  margin: 0 auto;
+  overflow: hidden;
+  background-color: $welcome-bg-page;
+}
+
+.welcome-page__top-spacer {
+  height: 144rpx;
+  width: 100%;
+}
+
+.welcome-page__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 64rpx;
+  padding-right: 64rpx;
+}
+
+.welcome-page__title {
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  line-height: 1.1;
+  font-size: 76rpx;
+  font-family: system-ui, -apple-system, "PingFang SC", "Helvetica Neue", sans-serif;
+}
+
+// H5：横排渐变填充字稿
+.welcome-page__title--gradient {
+  background: $welcome-gradient-title;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+// 小程序等对 background-clip: text 支持弱的端
+.welcome-page__title--flat {
+  color: #9885dc;
+}
+
+.welcome-page__subtitle {
+  margin-top: 32rpx;
+  font-size: 28rpx;
+  font-weight: 400;
+  line-height: 1.8;
+  letter-spacing: 0.04em;
+  text-align: center;
+  color: $welcome-text-sub;
+}
+
+.welcome-page__divider {
+  margin-top: 64rpx;
+  width: 80rpx;
+  height: 4rpx;
+  border-radius: 4rpx;
+  background: $welcome-gradient-divider;
+}
+
+.welcome-page__wave-wrap {
+  position: relative;
+  margin-top: 64rpx;
+  width: 100%;
+  height: 240rpx;
+}
+
+// —— 声波 SVG 容器 ——
+.welcome-wave-root {
+  width: 100%;
+  height: 240rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.welcome-wave-root__svg {
+  position: absolute;
+  left: 0;
+  width: 100%;
+}
+
+.welcome-wave-root__svg--layers1,
+.welcome-wave-root__svg--layers2 {
+  top: 0;
+  height: 240rpx;
+}
+
+.welcome-wave-root__svg--layers3 {
+  bottom: 24rpx;
+  height: 160rpx;
+}
+
+// —— 功能卡行 ——
+.welcome-cards {
+  margin-top: -32rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 24rpx;
+  padding: 0 40rpx;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.welcome-feature {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+  padding: 40rpx 24rpx;
+  border-radius: $rp-radius;
+  box-sizing: border-box;
+  background-color: $rp-card;
+  box-shadow: $rp-shadow-card;
+}
+
+.welcome-feature__icon-ring {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    135deg,
+    rgba(200, 182, 255, 0.18) 0%,
+    rgba(189, 224, 254, 0.18) 100%
+  );
+}
+
+.welcome-feature__text-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rpx;
+}
+
+.welcome-feature__line1 {
+  font-size: 24rpx;
+  font-weight: 600;
+  text-align: center;
+  color: $welcome-text-strong;
+}
+
+.welcome-feature__line2 {
+  font-size: 22rpx;
+  line-height: 1.35;
+  text-align: center;
+  color: $welcome-text-sub;
+}
+
+// —— AI 徽章 + 正文 ——
+.welcome-info {
+  margin-top: 80rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32rpx;
+  padding-left: 64rpx;
+  padding-right: 64rpx;
+}
+
+.welcome-chip {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16rpx;
+  padding: 16rpx 32rpx;
+  border-radius: 80rpx;
+  border: 1px solid $welcome-chip-border;
+  background-color: $welcome-chip-bg;
+  box-sizing: border-box;
+}
+
+.welcome-chip__strong {
+  font-size: 22rpx;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: #c8b6ff;
+}
+
+.welcome-chip__sep {
+  width: 2rpx;
+  height: 24rpx;
+  background-color: $rp-divider;
+}
+
+.welcome-chip__muted {
+  font-size: 22rpx;
+  letter-spacing: 0.04em;
+  color: $welcome-text-sub;
+}
+
+.welcome-copy {
+  max-width: 560rpx;
+  font-size: 26rpx;
+  line-height: 1.9;
+  text-align: center;
+  color: $welcome-text-sub;
+}
+
+.welcome-page__growth {
+  min-height: 64rpx;
+  width: 100%;
+  flex: 1 1 auto;
+}
+
+// —— 分页点（中间椭圆高亮） ——
+.welcome-dots {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16rpx;
+  margin-bottom: 64rpx;
+}
+
+.welcome-dots__dot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  opacity: 0.6;
+}
+
+.welcome-dots__dot--left {
+  background-color: #c8b6ff;
+}
+
+.welcome-dots__dot--right {
+  background-color: #bde0fe;
+}
+
+.welcome-dots__pill {
+  width: 20rpx;
+  height: 12rpx;
+  border-radius: 6rpx;
+  opacity: 0.85;
+  background: linear-gradient(90deg, #c8b6ff 0%, #bde0fe 100%);
+}
+
+// —— 底部 CTA：横排渐变 +  shimmer 沿用全局动画 ——
+.welcome-footer {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 48rpx 80rpx;
+}
+
+.welcome-cta {
+  width: 100%;
+  height: 112rpx;
+  border-radius: $rp-radius;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.rp-btn-shimmer {
+    background-image: $welcome-gradient-cta-flow;
+    background-size: 200% 100%;
+    background-repeat: no-repeat;
+  }
+}
+
+.welcome-cta__label {
+  color: #fff;
+  font-size: 34rpx;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-shadow: 0 2rpx 8rpx rgba(150, 120, 255, 0.18);
+}
